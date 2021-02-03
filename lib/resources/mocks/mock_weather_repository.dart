@@ -9,8 +9,9 @@ class MockWeatherRepository extends WeatherRepository {
   Future<Weather> fetchWeather(Location location) {
     return Future.value(Weather(
         coord: location,
-        weather: [WeatherDetails(
-            main: "Clouds", description: "few clouds", icon: "02d")],
+        weather: [
+          WeatherDetails(main: "Clouds", description: "few clouds", icon: "02d")
+        ],
         main: WeatherMain(temp: 280.02, pressure: 1005, humidity: 85),
         name: "Kobiór"));
   }
