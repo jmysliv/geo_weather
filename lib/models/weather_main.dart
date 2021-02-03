@@ -5,13 +5,13 @@ class WeatherMain extends Equatable {
   bool get stringify => true;
 
   final double temp;
-  final double pressure;
-  final double humidity;
+  final int pressure;
+  final int humidity;
 
   WeatherMain(
       {@required this.temp, @required this.pressure, @required this.humidity});
 
-  WeatherMain copyWith({double temp, double pressure, double humidity}) {
+  WeatherMain copyWith({double temp, int pressure, int humidity}) {
     return WeatherMain(
         temp: temp ?? this.temp,
         pressure: pressure ?? this.pressure,
@@ -29,7 +29,7 @@ class WeatherMain extends Equatable {
     if (json == null) return null;
     return WeatherMain(
         temp: json["temp"] as double,
-        pressure: json["pressure"] as double,
-        humidity: json["humidity"] as double);
+        pressure: json["pressure"] as int,
+        humidity: json["humidity"] as int);
   }
 }

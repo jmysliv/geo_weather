@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import "package:geo_weather/models/weather_details.dart";
 import "package:geo_weather/models/weather_main.dart";
 import "package:geo_weather/models/location.dart";
+import "package:geo_weather/models/weather_details.dart";
 
 class Weather extends Equatable {
   bool get stringify => true;
 
   final Location coord;
-  final WeatherDetails weather;
+  final List<WeatherDetails> weather;
   final WeatherMain main;
   final String name;
 
@@ -19,7 +19,10 @@ class Weather extends Equatable {
       @required this.name});
 
   Weather copyWith(
-      {Location coord, WeatherDetails weather, WeatherMain main, String name}) {
+      {Location coord,
+      List<WeatherDetails> weather,
+      WeatherMain main,
+      String name}) {
     return Weather(
         coord: coord ?? this.coord,
         weather: weather ?? this.weather,
@@ -33,7 +36,7 @@ class Weather extends Equatable {
   Map<String, dynamic> toJson() {
     return {
       "coord": coord?.toJson(),
-      "weather": weather?.toJson(),
+      "weather": weather.map((e) => e?.toJson()),
       "main": main?.toJson(),
       "name": name
     };
@@ -43,7 +46,8 @@ class Weather extends Equatable {
     if (json == null) return null;
     return Weather(
         coord: Location.fromJson(json["coord"]),
-        weather: WeatherDetails.fromJson(json["weather"]),
+        weather: List<WeatherDetails>.from(
+            json["weather"].map((e) => WeatherDetails.fromJson(e))),
         main: WeatherMain.fromJson(json["main"]),
         name: json["name"]);
   }
