@@ -1,0 +1,6 @@
+{
+  "__class__": "WeatherDetails",
+  "main": {"type": "String"},
+  "description": {"type":  "String"},
+  "icon": {"type": "String"}
+}

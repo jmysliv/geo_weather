@@ -15,7 +15,7 @@ def parse_type_import(type):
     return match.group(1)
 
 
-def generate_custom_type_imports(keys, spec, package_dir="bimber/models/"):
+def generate_custom_type_imports(keys, spec, package_dir="geo_weather/models/"):
     types = [parse_type_import(spec[key]["type"]) for key in keys]
     types = list(
         set(list(filter(lambda x: x not in basic_types.keys(), types))))

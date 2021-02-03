@@ -1,0 +1,6 @@
+{
+  "__class__": "WeatherMain",
+  "temp": {"type": "double"},
+  "pressure": {"type": "double"},
+  "humidity": {"type":  "double"}
+}

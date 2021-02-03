@@ -1,0 +1,7 @@
+{
+  "__class__": "Weather",
+  "coord": {"type": "Location"},
+  "weather": {"type":  "WeatherDetails"},
+  "main": {"type": "WeatherMain"},
+  "name": {"type":  "String"}
+}
