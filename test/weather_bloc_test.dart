@@ -1,9 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:geo_weather/bloc/weather_bloc.dart';
 import 'package:geo_weather/models/location.dart';
-import 'package:geo_weather/models/weather.dart';
-import 'package:geo_weather/models/weather_details.dart';
-import 'package:geo_weather/models/weather_main.dart';
+import 'package:geo_weather/resources/mocks/Fixtures.dart';
 import 'package:geo_weather/resources/mocks/mock_location_service.dart';
 import 'package:geo_weather/resources/mocks/mock_weather_repository.dart';
 import 'package:geo_weather/resources/repositories/weather_repository.dart';
@@ -25,15 +23,8 @@ void main() {
     test('weather stream gets updated', () async {
       Location location = Location(lat: 50.3, lon: 19.2);
       service.addLocationEvent(location);
-      WeatherState expectedWeatherState = WeatherFetched(
-          weather: Weather(
-              coord: location,
-              weather: [
-                WeatherDetails(
-                    main: "Clouds", description: "few clouds", icon: "02d")
-              ],
-              main: WeatherMain(temp: 280.02, pressure: 1005, humidity: 85),
-              name: "Kobiór"));
+      WeatherState expectedWeatherState =
+          WeatherFetched(weather: Fixtures.getWeather(location: location));
       var state = await bloc.weatherStream.first;
       expect(state, expectedWeatherState);
     });

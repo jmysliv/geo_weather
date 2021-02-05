@@ -1,67 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:geo_weather/bloc/weather_bloc.dart';
+import 'package:geo_weather/resources/geolocator_services/geolocator_location_service.dart';
+import 'package:geo_weather/resources/open_weather_map_repositories/owm_weather_repository.dart';
+import 'package:geo_weather/resources/repositories/weather_repository.dart';
+import 'package:geo_weather/resources/services/location_service.dart';
+import 'package:geo_weather/ui/home_screen.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  await GeolocatorLocationService.initialize();
+  runApp(App());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
-    );
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    return MultiProvider(
+        providers: [
+          Provider<LocationService>(
+            create: (_) => GeolocatorLocationService(),
+          ),
+          Provider<WeatherRepository>(
+            create: (_) => OwmWeatherRepository(),
+          )
+        ],
+        child: Builder(
+          builder: (context) {
+            return Provider<WeatherBloc>(
+              create: (_) => WeatherBloc(
+                  repository: context.read<WeatherRepository>(),
+                  locationService: context.read<LocationService>()),
+              child: MaterialApp(
+                title: 'Geo Weather',
+                theme: ThemeData(
+                  primarySwatch: Colors.blue,
+                  visualDensity: VisualDensity.adaptivePlatformDensity,
+                ),
+                onGenerateRoute: (settings) {
+                  switch (settings.name) {
+                    case "/":
+                      {
+                        return PageTransition(
+                            type: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 300),
+                            child: HomeScreen());
+                      }
+                    default:
+                      {
+                        // this should not happen
+                        assert(false);
+                        return null;
+                      }
+                  }
+                },
+                initialRoute: "/",
+              ),
+            );
+          },
+        ));
   }
 }
