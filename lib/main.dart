@@ -5,7 +5,7 @@ import 'package:geo_weather/resources/geolocator_services/geolocator_location_se
 import 'package:geo_weather/resources/open_weather_map_repositories/owm_weather_repository.dart';
 import 'package:geo_weather/resources/repositories/weather_repository.dart';
 import 'package:geo_weather/resources/services/location_service.dart';
-import 'package:geo_weather/ui/home_screen.dart';
+import 'package:geo_weather/ui/home/home_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
