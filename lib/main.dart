@@ -6,6 +6,8 @@ import 'package:geo_weather/resources/open_weather_map_repositories/owm_weather_
 import 'package:geo_weather/resources/repositories/weather_repository.dart';
 import 'package:geo_weather/resources/services/location_service.dart';
 import 'package:geo_weather/ui/home/home_screen.dart';
+import 'package:geo_weather/ui/utils/theme.dart';
+import 'package:geo_weather/ui/weather/weather_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
@@ -39,18 +41,22 @@ class App extends StatelessWidget {
                   locationService: context.read<LocationService>()),
               child: MaterialApp(
                 title: 'Geo Weather',
-                theme: ThemeData(
-                  primarySwatch: Colors.blue,
-                  visualDensity: VisualDensity.adaptivePlatformDensity,
-                ),
+                theme: themeData,
                 onGenerateRoute: (settings) {
                   switch (settings.name) {
                     case "/":
                       {
                         return PageTransition(
                             type: PageTransitionType.fade,
-                            duration: Duration(milliseconds: 300),
+                            duration: Duration(milliseconds: 500),
                             child: HomeScreen());
+                      }
+                    case "/weather":
+                      {
+                        return PageTransition(
+                            type: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 500),
+                            child: WeatherScreen());
                       }
                     default:
                       {
