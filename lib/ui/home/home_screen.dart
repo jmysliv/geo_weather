@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:geo_weather/bloc/weather_bloc.dart';
 import 'package:geo_weather/models/location.dart';
-import 'package:geo_weather/ui/utils/poland_map.dart';
+import 'package:geo_weather/ui/home/poland_map.dart';
 import 'package:geo_weather/ui/utils/theme.dart';
+import 'package:geo_weather/ui/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:build_context/build_context.dart';
 
@@ -52,25 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ));
   }
 
-  _labelWithIcon(IconData icon, String text) {
-    return Row(
-      children: <Widget>[
-        Icon(
-          icon,
-          color: bittersweet,
-        ),
-        Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text(
-            text,
-            style: TextStyle(
-                color: oxfordBlue, fontSize: 20, fontWeight: FontWeight.w900),
-          ),
-        )
-      ],
-    );
-  }
-
   _labels() {
     if (currentLocation == null) {
       return Align(
@@ -84,14 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
     return Container(
-        padding: EdgeInsets.only(left: 20),
+        padding: EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
-            _labelWithIcon(Icons.north, "Latitude: ${currentLocation.lat}"),
+            labelWithIcon(Icons.north, "Latitude", "${currentLocation.lat}"),
             SizedBox(
               height: 5,
             ),
-            _labelWithIcon(Icons.east, "Longitude: ${currentLocation.lon}")
+            labelWithIcon(Icons.east, "Longitude", "${currentLocation.lon}")
           ],
         ));
   }
