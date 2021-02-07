@@ -1,16 +1,19 @@
-# geo_weather
+Geo Weather
+===
+A simple mobile app, that shows your current location, and checks weather.
 
-A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+You can simply download an [apk file](https://github.com/jmysliv/geo_weather/releases/download/1.0/app.apk) and then install it on your android device.
 
-A few resources to get you started if this is your first Flutter project:
+You can also clone repository and build app yourself. Use the following commands:
+```bash
+    git clone git@github.com:jmysliv/geo_weather.git
+    cd geo_weather
+    flutter build apk --split-per-abi
+    flutter install
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Demo 
+<img src="gifs/demo.gif" height=500>
